@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import configPassport from './strategies/passport-jwt';
 import params from './configs/params';
-import schema from './schema/schema';
+import schema from './graphql/schema';
 import cors from 'cors';
 import logger from 'morgan';
 

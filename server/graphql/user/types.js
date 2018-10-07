@@ -4,7 +4,7 @@ const GraphQLDate = require('graphql-date');
 const UserType = new GraphQLObjectType({
     name: 'UserType',
     fields: () => ({
-        _id: { type: GraphQLID },
+        id: { type: GraphQLID },
         fullName: { type: GraphQLString },
         email: { type: GraphQLString },
         createdAt: { type: GraphQLDate },

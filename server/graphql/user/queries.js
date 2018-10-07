@@ -7,10 +7,10 @@ export class UserQuery {
         return {
             type: UserType,
             args: {
-                _id: { type: new GraphQLNonNull(GraphQLID) }
+                id: { type: new GraphQLNonNull(GraphQLID) }
             },
             resolve: async (parentValue, args) => {
-                return await UserService.getById(args._id);
+                return await UserService.getById(args.id);
             }
         }
     }
