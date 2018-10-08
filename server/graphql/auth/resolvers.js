@@ -7,6 +7,8 @@ export class AuthResolver {
     static async signup(payload) {
         try {
             let user = await UserService.getByEmail(payload.email);
+
+            console.log(user);
     
             if (user) {
                 throw new Error('email-unique');

@@ -1,31 +1,28 @@
 import './style/style.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
-import ApolloClient from 'apollo-client';
+import ReactDOM from 'react-dom';
+import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-import App from './components/App';
+import Login from './src/components/Login';
+import App from './src/components/App';
 
-const client = new ApolloClient({
-  dataIdFromObject: o => o.id
-});
+const client = new ApolloClient();
 
 const Root = () => {
-  return (
-      <ApolloProvider client={client}>
-          <Router history={hashHistory}>
-              <Route path="/" component={App}>
-                  <IndexRoute component={Pages.Home} />
-                  <Route path="/login" component={Pages.Login} />
-                  <Route path="/signup" component={Pages.Signup} />
-              </Route>
-          </Router>
-      </ApolloProvider>
-  );
+    return (
+        <ApolloProvider client={client}>
+            <Router history={hashHistory}>
+                <Route path="/" component={App}>
+                    <IndexRoute component={Login} />
+                </Route>
+            </Router>
+        </ApolloProvider>
+    );
 };
 
 ReactDOM.render(
-  <Root />,
-  document.querySelector('#root')
+    <Root />,
+    document.querySelector('#root')
 );

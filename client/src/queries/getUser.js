@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query UserQuery($_id: ID!) {
+  query user($_id: ID!) {
     user(_id: $_id) {
       _id
       fullName
