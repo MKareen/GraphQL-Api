@@ -10,6 +10,8 @@ import params from './configs/params';
 import schema from './graphql/schema';
 import cors from 'cors';
 import logger from 'morgan';
+import authenticate from './middlewares/passport';
+import jwt from 'jsonwebtoken';
 
 class Application {
     app;
@@ -44,7 +46,30 @@ class Application {
     configPassport() {
         configPassport(params.tokenSecret, passport);
         this.app.use(passport.initialize())
-                .use(passport.session());
+                .use(passport.session())
+                // .use(async (req, res, next) => {
+                //     const token = req.headers["authorization"];
+                //     if (token !== 'null') {
+                //         try {
+                //             console.log(token);
+                //             const user = await jwt.verify(token, params.tokenSecret);
+                //             console.log(user, 'wrfwergergergr');
+                //             req.user = user;
+                //             console.log(req.user);
+                //         } catch (e) {
+                //             console.error(e);
+                //         }
+                //     }
+                //     next();
+                // })
+                .use('/graphql', (req, res, next) => {
+                    passport.authenticate('jwt', { session: false }, (err, user, info) => {
+                      if (user) {
+                        req.user = user
+                      }
+                      next()
+                    })(req, res, next)
+                  })
     }
 
     setParams() {
@@ -52,9 +77,12 @@ class Application {
     }
 
     configGraphQL() {
-        this.app.use('/graphql', expressGraphQL({
-            schema,
-            graphiql: true
+        this.app.use('/graphql', expressGraphQL((req, res) => {
+            return {
+                schema,
+                graphiql: true,
+                context: req
+            }
         }));
     }
 

@@ -23,4 +23,17 @@ export class UserQuery {
             }
         }
     }
+
+    static getCurrentUser() {
+        return {
+            type: UserType,
+            resolve: async (parentValue, args, { user }) => {
+                if (!user) {
+                    return null;
+                }
+
+                return await UserService.getByEmail(user.email)
+            }
+        }
+    }
 }
