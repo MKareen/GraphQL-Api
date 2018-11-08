@@ -1,2 +1,2 @@
 # GraphQL BoilerPlate
-Node.js/Express/Mongo/GraphQl/React boilerplate
+Node.js/Express/MongoDB/GraphQl boilerplate
