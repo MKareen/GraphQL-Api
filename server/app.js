@@ -11,10 +11,6 @@ import schema from './graphql/schema';
 import cors from 'cors';
 import logger from 'morgan';
 
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack');
-const webpackConfig = require('../webpack.config.js');
-
 class Application {
     app;
 
@@ -26,7 +22,6 @@ class Application {
         this.configApp();
         this.configPassport();
         this.setParams();
-        this.setWebpack();
         this.configGraphQL();
     }
 
@@ -61,10 +56,6 @@ class Application {
             schema,
             graphiql: true
         }));
-    }
-
-    setWebpack() {
-        this.app.use(webpackMiddleware(webpack(webpackConfig)));
     }
 
 }
