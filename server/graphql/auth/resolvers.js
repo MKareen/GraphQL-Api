@@ -1,5 +1,4 @@
 import { UserService } from '../../services';
-import { BadRequest } from '../../errors';
 import Utils from '../../helpers/utils';
 
 export class AuthResolver {
@@ -21,7 +20,7 @@ export class AuthResolver {
             return {
                 accessToken: tokenInfo.token,
                 user
-            }
+            };
         } catch(err) {
             console.log(err);
         }   
@@ -35,7 +34,7 @@ export class AuthResolver {
             user = await UserService.getByEmail(email);
     
             if (!user || !user.comparePassword(password)) {
-                return next(new BadRequest('invalid-email-or-password'));
+                throw new Error('invalid-email-or-password');
             }
     
             const tokenInfo = await Utils.signJWTToken(user);

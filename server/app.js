@@ -4,13 +4,10 @@ import { json, urlencoded } from 'body-parser';
 import RateLimit from 'express-rate-limit';
 import limiter from './configs/limiter';
 import cookieParser from 'cookie-parser';
-import passport from 'passport';
-import configPassport from './strategies/passport-jwt';
 import params from './configs/params';
 import schema from './graphql/schema';
 import cors from 'cors';
 import logger from 'morgan';
-import authenticate from './middlewares/passport';
 import jwt from 'jsonwebtoken';
 
 class Application {
@@ -22,7 +19,7 @@ class Application {
     }
     initApp() {
         this.configApp();
-        this.configPassport();
+        this.configAuthentication();
         this.setParams();
         this.configGraphQL();
     }
@@ -36,40 +33,26 @@ class Application {
                 .use(json())
                 .use(urlencoded({ extended: true }))
                 .use(cookieParser())
-                .use(this.createLimiter())
+                .use(this.createLimiter());
     }
 
     createLimiter() {
         return new RateLimit(limiter);
     }
 
-    configPassport() {
-        configPassport(params.tokenSecret, passport);
-        this.app.use(passport.initialize())
-                .use(passport.session())
-                // .use(async (req, res, next) => {
-                //     const token = req.headers["authorization"];
-                //     if (token !== 'null') {
-                //         try {
-                //             console.log(token);
-                //             const user = await jwt.verify(token, params.tokenSecret);
-                //             console.log(user, 'wrfwergergergr');
-                //             req.user = user;
-                //             console.log(req.user);
-                //         } catch (e) {
-                //             console.error(e);
-                //         }
-                //     }
-                //     next();
-                // })
-                .use('/graphql', (req, res, next) => {
-                    passport.authenticate('jwt', { session: false }, (err, user, info) => {
-                      if (user) {
-                        req.user = user
-                      }
-                      next()
-                    })(req, res, next)
-                  })
+    configAuthentication() {
+        this.app.use(async (req, res, next) => {
+            const token = req.headers['authorization'];
+            if (token !== 'null') {
+                try {
+                    req.currentUser = await jwt.verify(token, params.tokenSecret);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            next();
+        });
+
     }
 
     setParams() {
@@ -82,7 +65,7 @@ class Application {
                 schema,
                 graphiql: true,
                 context: req
-            }
+            };
         }));
     }
 

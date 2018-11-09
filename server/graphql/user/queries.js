@@ -27,12 +27,12 @@ export class UserQuery {
     static getCurrentUser() {
         return {
             type: UserType,
-            resolve: async (parentValue, args, { user }) => {
-                if (!user) {
+            resolve: async (parentValue, args, { currentUser }) => {
+                if (!currentUser) {
                     return null;
                 }
 
-                return await UserService.getByEmail(user.email)
+                return await UserService.getByEmail(currentUser.email);
             }
         }
     }
