@@ -60,11 +60,17 @@ class Application {
     }
 
     configGraphQL() {
-        this.app.use('/graphql', expressGraphQL((req, res) => {
+        this.app.use('/graphql', expressGraphQL((req) => {
             return {
                 schema,
                 graphiql: true,
-                context: req
+                context: req,
+                formatError: error => ({
+                    message: error.message,
+                    state: error.originalError && error.originalError.state,
+                    locations: error.locations,
+                    path: error.path,
+                }),
             };
         }));
     }

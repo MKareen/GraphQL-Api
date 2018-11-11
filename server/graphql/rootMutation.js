@@ -1,11 +1,17 @@
-import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLNonNull } from  'graphql';
+import { GraphQLObjectType } from  'graphql';
 import { AuthMutation } from './auth/mutations';
+import { ContactMutation } from './contact/mutations';
 
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
         signup: AuthMutation.signup(),
-        login: AuthMutation.login()
+        login: AuthMutation.login(),
+
+        addContact: ContactMutation.addContact(),
+        editContact: ContactMutation.editContact(),
+        deleteContact: ContactMutation.deleteContact(),
+        addToFavourites: ContactMutation.addToFavourites()
     }
 });
 
