@@ -1,6 +1,7 @@
 import { GraphQLString, GraphQLID, GraphQLNonNull } from  'graphql';
 import { ContactResolver } from './resolvers';
 import { ContactType } from './types';
+import { ContactValidator } from './validator';
 
 export class ContactMutation {
     static addContact() {
@@ -14,12 +15,11 @@ export class ContactMutation {
                 address: { type: GraphQLString }
             },
             resolve: async (root, args, { currentUser }) => {
-                if (!currentUser) {
-                    return null;
-                }
+                ContactValidator.saveContact(args, currentUser);
+
                 return await ContactResolver.addContact(args, currentUser);
-            } 
-        }
+            }
+        };
     }
 
     static editContact() {
@@ -33,12 +33,11 @@ export class ContactMutation {
                 address: { type: GraphQLString }
             },
             resolve: async (root, args, { currentUser }) => {
-                if (!currentUser) {
-                    return null;
-                }
+                ContactValidator.saveContact(args, currentUser);
+
                 return await ContactResolver.editContact(args, currentUser);
             } 
-        }
+        };
     }
 
     static addToFavourites() {
@@ -47,10 +46,12 @@ export class ContactMutation {
             args: {
                 id: { type: GraphQLID }
             },
-            resolve: async (root, args) => {
+            resolve: async (root, args, { currentUser }) => {
+                ContactValidator.checkAuth(currentUser);
+
                 return await ContactResolver.addToFavourites(args);
             }
-        }
+        };
     }
 
     static deleteContact() {
@@ -60,11 +61,10 @@ export class ContactMutation {
                 id: { type: new GraphQLNonNull(GraphQLID) }
             },
             resolve: async (root, args, { currentUser }) => {
-                if (!currentUser) {
-                    return null;
-                }
+                ContactValidator.checkAuth(currentUser);
+
                 return await ContactResolver.deleteContact(args);
             }
-        }
+        };
     }
 }

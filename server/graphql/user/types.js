@@ -13,7 +13,7 @@ const UserType = new GraphQLObjectType({
         updatedAt: { type: GraphQLDate },
         favourites: { 
             type: new  GraphQLList(ContactType),
-            resolve: async (root, args) => {
+            resolve: async (root) => {
                 return await ContactService.getUserFavourites(root.id);
             }
         },

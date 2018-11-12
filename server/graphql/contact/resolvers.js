@@ -1,5 +1,6 @@
 import { ContactService } from '../../services';
-import { ADDRGETNETWORKPARAMS } from 'dns';
+import { NotFound } from '../../errors';
+import { NOT_EXISTS } from '../../configs/constants';
 
 export class ContactResolver {
     static async addContact(payload, user) {
@@ -10,21 +11,21 @@ export class ContactResolver {
 
             return contact;
         } catch(err) {
-            console.log(err);
+            throw err;
         }
     }
 
     static async editContact(payload) {
         try {
-            const contact = await ContactService.getById(paylaod.id);
+            const contact = await ContactService.getById(payload.id);
 
             if (!contact) {
-                throw new Error('Contact does not exist');
+                throw new NotFound(NOT_EXISTS('Contact'));
             }
 
             return await ContactService.update(payload.id, contact);
         } catch(err) {
-            console.log(err);
+            throw err;
         }
     }
 
@@ -32,7 +33,7 @@ export class ContactResolver {
         try {
             return await ContactService.delete(payload.id);
         } catch(err) {
-            throw err
+            throw err;
         }
     }
 
@@ -42,24 +43,25 @@ export class ContactResolver {
 
             const attributes = {
                 isFavourite: !contact.isFavourite
-            }
+            };
 
             return await ContactService.update(payload.id, attributes);
         } catch(err) {
-            console.log(err);
+            throw err;
         }
     }
 
     static async searchContact(payload, user) {
         try {
             if (payload.q) {
-                let searchresult = await ContactService.search(payload.q);
-                return searchresult.filter(res => res.owner === user._id.toString());
+                let searchResult = await ContactService.search(payload.q);
+
+                return searchResult.filter(res => res.owner === user._id.toString());
             } else {
                 return await ContactService.getByUserId(user._id);
             }
         } catch(err) {
-            console.log(err);
+            throw err;
         }
     }
 
@@ -67,7 +69,7 @@ export class ContactResolver {
         try {
             return await ContactService.getByUserId(user._id);
         } catch (err) {
-            console.log(err);
+            throw err;
         } 
     }
 }

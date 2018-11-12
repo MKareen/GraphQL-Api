@@ -4,11 +4,11 @@ import { json, urlencoded } from 'body-parser';
 import RateLimit from 'express-rate-limit';
 import limiter from './configs/limiter';
 import cookieParser from 'cookie-parser';
-import params from './configs/params';
 import schema from './graphql/schema';
 import cors from 'cors';
 import logger from 'morgan';
-import jwt from 'jsonwebtoken';
+import Utils from './helpers/utils';
+import { AuthError } from './errors';
 
 class Application {
     app;
@@ -45,9 +45,9 @@ class Application {
             const token = req.headers['authorization'];
             if (token !== 'null') {
                 try {
-                    req.currentUser = await jwt.verify(token, params.tokenSecret);
+                    req.currentUser = await Utils.verifyJWTToken(token);
                 } catch (err) {
-                    console.error(err);
+                    throw new AuthError('Unauthorized');
                 }
             }
             next();

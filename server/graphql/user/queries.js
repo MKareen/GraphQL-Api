@@ -12,7 +12,7 @@ export class UserQuery {
             resolve: async (parentValue, args) => {
                 return await UserService.getById(args.id);
             }
-        }
+        };
     }
 
     static getAll() {
@@ -21,7 +21,7 @@ export class UserQuery {
             resolve: async () => {
                 return await UserService.getAll();
             }
-        }
+        };
     }
 
     static getCurrentUser() {
@@ -34,6 +34,6 @@ export class UserQuery {
 
                 return await UserService.getByEmail(currentUser.email);
             }
-        }
+        };
     }
 }

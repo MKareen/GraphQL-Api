@@ -1,5 +1,4 @@
 import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLBoolean } from 'graphql';
-import UserType from '../user/types';
 const GraphQLDate = require('graphql-date');
 
 export const ContactType = new GraphQLObjectType({

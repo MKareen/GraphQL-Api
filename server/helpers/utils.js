@@ -12,4 +12,8 @@ export default class Utils {
         return { token };
     }
 
+    static async verifyJWTToken(token) {
+        return await jwt.verify(token, params.tokenSecret);
+    }
+
 }

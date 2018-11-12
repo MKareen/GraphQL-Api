@@ -1,5 +1,6 @@
-import { GraphQLString, GraphQLID, GraphQLNonNull } from  'graphql';
+import { GraphQLString, GraphQLNonNull } from  'graphql';
 import { AuthResolver } from './resolvers';
+import { AuthValidator } from './validator';
 import AuthPayloadType from './types';
 
 export class AuthMutation {
@@ -11,10 +12,12 @@ export class AuthMutation {
                 email: { type: new GraphQLNonNull(GraphQLString) },
                 password: { type: new GraphQLNonNull(GraphQLString) }
             },
-            resolve: async (parent, args) => {
+            resolve: async (root, args) => {
+                AuthValidator.signup(args);
+
                 return await AuthResolver.signup(args);
             } 
-        }
+        };
     }
 
     static login() {
@@ -24,9 +27,11 @@ export class AuthMutation {
                 email: { type: new GraphQLNonNull(GraphQLString) },
                 password: { type: new GraphQLNonNull(GraphQLString) }
             },
-            resolve: async (parent, fields) => {
-                return await AuthResolver.login(fields);
+            resolve: async (root, args) => {
+                // AuthValidator.login(args);
+
+                return await AuthResolver.login(args);
             } 
-        }
+        };
     }
 }

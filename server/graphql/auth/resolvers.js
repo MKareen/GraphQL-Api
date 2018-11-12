@@ -1,5 +1,6 @@
 import { UserService } from '../../services';
 import Utils from '../../helpers/utils';
+import { AuthError, BadRequest } from '../../errors';
 
 export class AuthResolver {
 
@@ -7,10 +8,8 @@ export class AuthResolver {
         try {
             let user = await UserService.getByEmail(payload.email);
 
-            console.log(user);
-    
             if (user) {
-                throw new Error('email-unique');
+                throw new BadRequest('Email already used');
             }
     
             user = await UserService.create(payload);
@@ -22,8 +21,8 @@ export class AuthResolver {
                 user
             };
         } catch(err) {
-            console.log(err);
-        }   
+            throw err;
+        }
     }
 
     static async login(payload) {
@@ -34,7 +33,7 @@ export class AuthResolver {
             user = await UserService.getByEmail(email);
     
             if (!user || !user.comparePassword(password)) {
-                throw new Error('invalid-email-or-password');
+                throw new AuthError('Invalid email or password');
             }
     
             const tokenInfo = await Utils.signJWTToken(user);
@@ -45,7 +44,7 @@ export class AuthResolver {
             };
         }
         catch (err) {
-            console.log(err);
+            throw err;
         }
     }
     

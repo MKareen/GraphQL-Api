@@ -4,16 +4,30 @@ import {
     GONE_CODE,
     FORBIDDEN_CODE,
     SERVICE_UNAVAILABLE_CODE,
-    VALIDATION_ERROR_CODE,
     CONFLICT_CODE,
     NOT_FOUND_CODE
 } from '../configs/status-codes';
 import {
     PERMISSION_DENIED,
     SOMETHING_WENT_WRONG,
-    VALIDATION_ERROR,
     SERVICE_UNAVAILABLE
 } from '../configs/constants';
+import { GraphQLError } from 'graphql';
+
+export class ValidationError extends GraphQLError {
+    constructor(errors) {
+        super();
+        this.state = errors.reduce((result, error) => {
+            if (Object.prototype.hasOwnProperty.call(result, error.key)) {
+                result[error.key].push(error.message);
+            } else {
+                result[error.key] = [error.message];
+            }
+
+            return result;
+        }, {});
+    }
+}
 
 export class AuthError extends Error {
     status = UNAUTHORIZED_CODE;
@@ -82,17 +96,6 @@ export class Gone extends Error {
     constructor(message, errors = null) {
         super();
         this.message = message;
-        this.errors = errors;
-    }
-}
-
-export class ValidationError extends Error {
-    status = VALIDATION_ERROR_CODE;
-    message = VALIDATION_ERROR;
-    errors;
-
-    constructor(errors) {
-        super();
         this.errors = errors;
     }
 }
