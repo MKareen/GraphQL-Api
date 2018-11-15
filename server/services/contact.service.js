@@ -27,14 +27,14 @@ export class ContactService {
     static async search(query) {
         return await Contact.find(
             {
-              $text: { $search: query }
+                $text: { $search: query }
             },
             {
-              score: { $meta: "textScore" }
+                score: { $meta: 'textScore' }
             }
-          ).sort({
-            score: { $meta: "textScore" }
-          });
+        ).sort({
+            score: { $meta: 'textScore' }
+        });
     }
 
     static async getByUserId(id) {

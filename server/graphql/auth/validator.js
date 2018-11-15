@@ -10,7 +10,7 @@ export class AuthValidator {
             errors.push({ key: 'email', message: REQUIRED('Email') });
         }
 
-        if (validator.isEmail(payload.email)) {
+        if (!validator.isEmail(payload.email)) {
             errors.push({ key: 'email', message: INVALID('Email') });
         }
 
@@ -34,7 +34,7 @@ export class AuthValidator {
             errors.push({ key: 'email', message: REQUIRED('Email') });
         }
 
-        if (validator.isEmail(payload.email)) {
+        if (!validator.isEmail(payload.email)) {
             errors.push({ key: 'email', message: INVALID('Email') });
         }
 

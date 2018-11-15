@@ -28,7 +28,7 @@ export class AuthMutation {
                 password: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve: async (root, args) => {
-                // AuthValidator.login(args);
+                AuthValidator.login(args);
 
                 return await AuthResolver.login(args);
             } 

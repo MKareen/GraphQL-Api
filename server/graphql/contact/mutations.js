@@ -26,6 +26,7 @@ export class ContactMutation {
         return {
             type: ContactType,
             args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
                 firstName: { type: new GraphQLNonNull(GraphQLString) },
                 lastName: { type: GraphQLString },
                 email: { type: GraphQLString },

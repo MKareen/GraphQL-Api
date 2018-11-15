@@ -9,6 +9,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import Utils from './helpers/utils';
 import { AuthError } from './errors';
+import DataLoader from 'dataloader';
 
 class Application {
     app;
@@ -65,6 +66,7 @@ class Application {
                 schema,
                 graphiql: true,
                 context: req,
+                pretty: true,
                 formatError: error => ({
                     message: error.message,
                     state: error.originalError && error.originalError.state,

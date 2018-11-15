@@ -12,8 +12,8 @@ export default (mongoose) => {
     });
 
     ContactSchema.index({
-        "$**": "text"
-      });
+        '$**': 'text'
+    });
 
     ContactSchema.pre('save', function(next) {
         const now = new Date();

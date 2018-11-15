@@ -23,7 +23,7 @@ export class ContactResolver {
                 throw new NotFound(NOT_EXISTS('Contact'));
             }
 
-            return await ContactService.update(payload.id, contact);
+            return await ContactService.update(payload.id, payload);
         } catch(err) {
             throw err;
         }

@@ -1,6 +1,6 @@
 import { UserService } from '../../services';
 import Utils from '../../helpers/utils';
-import { AuthError, BadRequest } from '../../errors';
+import { AuthError, BadRequest, ValidationError } from '../../errors';
 
 export class AuthResolver {
 
