@@ -21,6 +21,8 @@ export class ContactService {
         return await Contact.find({
             owner: id,
             isFavourite: true
+        }).sort({
+            firstName: 1
         });
     }
 
@@ -38,7 +40,7 @@ export class ContactService {
     }
 
     static async getByUserId(id) {
-        return await Contact.find({ owner: id });
+        return await Contact.find({ owner: id }).sort({ firstName: 1 });
     }
 
     static async update(_id, contact) {

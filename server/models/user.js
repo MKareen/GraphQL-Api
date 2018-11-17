@@ -3,7 +3,7 @@ import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
 export default (mongoose) => {
     let UserSchema = mongoose.Schema({
         fullName: { type: String, required: true },
-        email: { type: String, required: true, index: true },
+        email: { type: String, required: true, unique: true, index: true },
         password: { type: String },
         createdAt: Date,
         updatedAt: Date

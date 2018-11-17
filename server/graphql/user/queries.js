@@ -9,7 +9,7 @@ export class UserQuery {
             args: {
                 id: { type: new GraphQLNonNull(GraphQLID) }
             },
-            resolve: async (parentValue, args) => {
+            resolve: async (root, args) => {
                 return await UserService.getById(args.id);
             }
         };
@@ -27,7 +27,7 @@ export class UserQuery {
     static getCurrentUser() {
         return {
             type: UserType,
-            resolve: async (parentValue, args, { currentUser }) => {
+            resolve: async (root, args, { currentUser }) => {
                 if (!currentUser) {
                     return null;
                 }
