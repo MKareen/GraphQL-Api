@@ -9,7 +9,11 @@ import cors from 'cors';
 import logger from 'morgan';
 import Utils from './helpers/utils';
 import { AuthError } from './errors';
+import passport from 'passport';
+import authenticate from './middlewares/passport';
+import configPassport from './strategies/facebook';
 import DataLoader from 'dataloader';
+import { SUCCESS_CODE } from './configs/status-codes';
 
 class Application {
     app;
@@ -22,6 +26,7 @@ class Application {
         this.configApp();
         this.configAuthentication();
         this.setParams();
+        this.facebookAuth();
         this.configGraphQL();
     }
 
@@ -39,6 +44,26 @@ class Application {
 
     createLimiter() {
         return new RateLimit(limiter);
+    }
+
+    facebookAuth() {
+        configPassport(passport);
+        this.app.use(passport.initialize())
+                .use(passport.session());
+
+        this.app.get('/fblogin', authenticate);
+        this.app.get('/auth/facebook/callback', authenticate, async (req, res) => {
+            const tokenInfo = await Utils.signJWTToken(req.user);
+            res.status(SUCCESS_CODE).json({
+                accessToken: tokenInfo.token, 
+                user: req.user
+            });
+        });
+
+        this.app.get('/fb/logout', (req, res) => {
+            req.logout();
+            res.redirect('/');
+        });
     }
 
     configAuthentication() {

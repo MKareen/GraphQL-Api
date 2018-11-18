@@ -18,6 +18,14 @@ export class UserService {
         return User.findOne({ email });
     }
 
+    static async createFacebookUser (data) {
+        return await User.create(data);
+    }
+
+    static async getByFacebookId(id) {
+        return await User.findOne({ facebookId: id });
+    } 
+
     static async update(_id, user) {
         const options = { new: true };
 

@@ -1,16 +1,25 @@
 import {
     apiPort,
-    tokenSecret
+    tokenSecret,
+    facebookId,
+    facebookSecret,
+    facebookCallbackUrl
 } from '../helpers/configs';
 
 const params = {
     development: {
         apiPort,
-        tokenSecret
+        tokenSecret,
+        facebookId,
+        facebookSecret,
+        facebookCallbackUrl
     },
     production: {
         apiPort,
-        tokenSecret
+        tokenSecret,
+        facebookId,
+        facebookSecret,
+        facebookCallbackUrl
     }
 };
 

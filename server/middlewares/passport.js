@@ -1,12 +1,3 @@
-const passport = require('passport');
+import passport from 'passport';
 
-export default passport.authenticate('jwt', { session: false });
-
-
-// export default passport.authenticate('jwt', { session: false }, (err, user, info) => {
-//       if (user) {
-//         req.user = user
-//       }
-  
-//       next()
-//     })(req, res, next);
+export default passport.authenticate('facebook', { scope: 'email', session: false });
