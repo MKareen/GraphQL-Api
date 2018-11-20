@@ -1,3 +1,3 @@
 import passport from 'passport';
 
-export default passport.authenticate('facebook', { scope: 'email', session: false });
+export default passport.authenticate('facebook', { session: false });

@@ -26,7 +26,7 @@ class Application {
         this.configApp();
         this.configAuthentication();
         this.setParams();
-        this.facebookAuth();
+        // this.facebookAuth();
         this.configGraphQL();
     }
 
@@ -46,29 +46,26 @@ class Application {
         return new RateLimit(limiter);
     }
 
-    facebookAuth() {
-        configPassport(passport);
-        this.app.use(passport.initialize())
-                .use(passport.session());
-
-        this.app.get('/fblogin', authenticate);
-        this.app.get('/auth/facebook/callback', authenticate, async (req, res) => {
-            const tokenInfo = await Utils.signJWTToken(req.user);
-            res.status(SUCCESS_CODE).json({
-                accessToken: tokenInfo.token, 
-                user: req.user
-            });
-        });
-
-        this.app.get('/fb/logout', (req, res) => {
-            req.logout();
-            res.redirect('/');
-        });
-    }
+    // facebookAuth() {
+    //     configPassport(passport);
+    //     this.app.use(passport.initialize());
+    //
+    //     this.app.get('/fblogin', authenticate);
+    //     this.app.get('/auth/facebook/callback', authenticate, async (req, res) => {
+    //         const tokenInfo = await Utils.signJWTToken(req.user);
+    //         res.redirect(`http://localhost:3000?token=${tokenInfo.token}`);
+    //     });
+    //
+    //     this.app.get('/fb/logout', (req, res) => {
+    //         req.logout();
+    //         res.redirect('/');
+    //     });
+    // }
 
     configAuthentication() {
         this.app.use(async (req, res, next) => {
             const token = req.headers['authorization'];
+            console.log(token);
             if (token !== 'null') {
                 try {
                     req.currentUser = await Utils.verifyJWTToken(token);

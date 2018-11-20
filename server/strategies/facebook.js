@@ -27,7 +27,6 @@ export default passport => {
 
     let strategy = new FacebookStrategy (fbOptios, async (accessToken, refreshToken, profile, cb) => {
         try {
-            let user;
             const loggedUser = profile._json;
             const fullName = `${loggedUser.first_name} ${loggedUser.last_name}`;
 
@@ -41,12 +40,12 @@ export default passport => {
                     fullName,
                 };
     
-                user = await UserService.createFacebookUser(data);
+                await UserService.createFacebookUser(data);
             }
 
-            cb(null, user);
+            cb(null, profile);
         } catch(err) {
-            cb(null, err);
+            cb(null, profile);
         }
     });
     passport.use(strategy);

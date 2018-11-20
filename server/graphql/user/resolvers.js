@@ -6,7 +6,7 @@ export class UserResolver {
         try {
             const checkUser = await UserService.getByEmail(payload.email);
 
-            if (checkUser) {
+            if (checkUser && checkUser.email !== user.email) {
                 throw new BadRequest('Email alraedy used');
             }
 
