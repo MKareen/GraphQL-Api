@@ -1,4 +1,4 @@
-import {initModels} from '../models';
+import { initModels } from '../models';
 import {
     mongoUrl
 } from '../helpers/configs';

@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from  'graphql';
-import { AuthMutation } from './auth/mutations';
-import { ContactMutation } from './contact/mutations';
-import { UserMutation } from './user/mutations';
+import { AuthMutation } from '../modules/auth/mutations';
+import { ContactMutation } from '../modules/contact/mutations';
+import { UserMutation } from '../modules/user/mutations';
 
 const mutation = new GraphQLObjectType({
     name: 'Mutation',

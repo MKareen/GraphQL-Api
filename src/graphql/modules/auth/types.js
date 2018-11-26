@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLString } from 'graphql';
-import UserType from '../user/types';
+import { UserType } from '../user/types';
 
 const AuthPayloadType = new GraphQLObjectType({
     name: 'AuthPayloadType',

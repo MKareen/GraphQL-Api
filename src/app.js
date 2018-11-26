@@ -4,16 +4,11 @@ import { json, urlencoded } from 'body-parser';
 import RateLimit from 'express-rate-limit';
 import limiter from './configs/limiter';
 import cookieParser from 'cookie-parser';
-import schema from './graphql/schema';
+import schema from './graphql/schema/schema';
 import cors from 'cors';
 import logger from 'morgan';
 import Utils from './helpers/utils';
 import { AuthError } from './errors';
-import passport from 'passport';
-import authenticate from './middlewares/passport';
-import configPassport from './strategies/facebook';
-import DataLoader from 'dataloader';
-import { SUCCESS_CODE } from './configs/status-codes';
 
 class Application {
     app;
@@ -26,7 +21,6 @@ class Application {
         this.configApp();
         this.configAuthentication();
         this.setParams();
-        // this.facebookAuth();
         this.configGraphQL();
     }
 
@@ -46,26 +40,9 @@ class Application {
         return new RateLimit(limiter);
     }
 
-    // facebookAuth() {
-    //     configPassport(passport);
-    //     this.app.use(passport.initialize());
-    //
-    //     this.app.get('/fblogin', authenticate);
-    //     this.app.get('/auth/facebook/callback', authenticate, async (req, res) => {
-    //         const tokenInfo = await Utils.signJWTToken(req.user);
-    //         res.redirect(`http://localhost:3000?token=${tokenInfo.token}`);
-    //     });
-    //
-    //     this.app.get('/fb/logout', (req, res) => {
-    //         req.logout();
-    //         res.redirect('/');
-    //     });
-    // }
-
     configAuthentication() {
         this.app.use(async (req, res, next) => {
             const token = req.headers['authorization'];
-            console.log(token);
             if (token !== 'null') {
                 try {
                     req.currentUser = await Utils.verifyJWTToken(token);
@@ -75,7 +52,6 @@ class Application {
             }
             next();
         });
-
     }
 
     setParams() {
@@ -87,7 +63,9 @@ class Application {
             return {
                 schema,
                 graphiql: true,
-                context: req,
+                context: {
+                    currentUser: req.currentUser
+                },
                 pretty: true,
                 formatError: error => ({
                     message: error.message,
@@ -98,7 +76,6 @@ class Application {
             };
         }));
     }
-
 }
 
 export default () => new Application().app;

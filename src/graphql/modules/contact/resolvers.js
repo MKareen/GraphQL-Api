@@ -1,15 +1,13 @@
-import { ContactService } from '../../services';
-import { NotFound } from '../../errors';
-import { NOT_EXISTS } from '../../configs/constants';
+import { ContactService } from '../../../services';
+import { NotFound } from '../../../errors';
+import { NOT_EXISTS } from '../../../configs/constants';
 
 export class ContactResolver {
     static async addContact(payload, user) {
         try {
             payload.owner = user._id;
 
-            const contact = await ContactService.create(payload);
-
-            return contact;
+            return await ContactService.create(payload);
         } catch(err) {
             throw err;
         }

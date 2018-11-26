@@ -1,6 +1,6 @@
 import validator from 'validator';
-import { AuthError, ValidationError } from '../../errors';
-import { INVALID, REQUIRED } from '../../configs/constants';
+import { AuthError, ValidationError } from '../../../errors';
+import { INVALID, REQUIRED } from '../../../configs/constants';
 
 export class UserValidator {
     static edit(payload, user) {

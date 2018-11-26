@@ -1,9 +1,9 @@
 import { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID } from 'graphql';
+import { GraphQLDate } from '../../scalars';
 import { ContactType } from '../contact/types';
-import { ContactService } from '../../services';
-const GraphQLDate = require('graphql-date');
+import { ContactService } from '../../../services';
 
-const UserType = new GraphQLObjectType({
+export const UserType = new GraphQLObjectType({
     name: 'UserType',
     fields: () => ({
         id: { type: GraphQLID },
@@ -20,4 +20,3 @@ const UserType = new GraphQLObjectType({
     })
 });
 
-export default UserType;

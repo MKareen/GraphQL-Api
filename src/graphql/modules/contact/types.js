@@ -1,11 +1,11 @@
 import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLBoolean } from 'graphql';
-const GraphQLDate = require('graphql-date');
+import { GraphQLObjectId, GraphQLDate } from '../../scalars';
 
 export const ContactType = new GraphQLObjectType({
     name: 'ContactType',
     fields: () => ({
         id: { type: GraphQLID },
-        owner: { type: GraphQLID },
+        owner: { type: GraphQLObjectId },
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
         email: { type: GraphQLString },

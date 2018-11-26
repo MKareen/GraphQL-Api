@@ -1,6 +1,6 @@
 import { GraphQLList, GraphQLID, GraphQLNonNull } from 'graphql';
-import { UserService } from '../../services';
-import UserType from './types';
+import { UserService } from '../../../services';
+import { UserType } from './types';
 
 export class UserQuery {
     static getOne() {

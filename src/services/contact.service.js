@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const Contact = mongoose.model('Contact');
+import _ from 'lodash';
 
 export class ContactService {
 
@@ -17,9 +18,9 @@ export class ContactService {
         return await Contact.create(contact);
     }
 
-    static async getUserFavourites(id) {
+    static async getUserFavourites(_id) {
         return await Contact.find({
-            owner: id,
+            owner: _id,
             isFavourite: true
         }).sort({
             firstName: 1
@@ -28,12 +29,8 @@ export class ContactService {
 
     static async search(query) {
         return await Contact.find(
-            {
-                $text: { $search: query }
-            },
-            {
-                score: { $meta: 'textScore' }
-            }
+            { $text: { $search: query } },
+            { score: { $meta: 'textScore' } }
         ).sort({
             score: { $meta: 'textScore' }
         });

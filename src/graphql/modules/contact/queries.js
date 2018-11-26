@@ -1,5 +1,5 @@
 import { GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
-import { ContactService } from '../../services';
+import { ContactService } from '../../../services';
 import { ContactResolver } from './resolvers';
 import { ContactType } from './types';
 import { ContactValidator } from './validator';

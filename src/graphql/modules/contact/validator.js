@@ -1,6 +1,6 @@
 import validator from 'validator';
-import { AuthError, ValidationError } from '../../errors';
-import { REQUIRED } from '../../configs/constants';
+import { AuthError, ValidationError } from '../../../errors';
+import { REQUIRED } from '../../../configs/constants';
 
 export class ContactValidator {
     static saveContact(payload, user) {

@@ -1,6 +1,6 @@
 import { GraphQLString, GraphQLNonNull } from  'graphql';
 import { UserResolver } from './resolvers';
-import UserType from './types';
+import { UserType } from './types';
 import { UserValidator } from './validator';
 
 export class UserMutation {

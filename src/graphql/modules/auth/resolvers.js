@@ -1,6 +1,7 @@
-import { UserService } from '../../services';
-import Utils from '../../helpers/utils';
-import { AuthError, BadRequest, ValidationError } from '../../errors';
+import { UserService } from '../../../services';
+import Utils from '../../../helpers/utils';
+import { AuthError, BadRequest } from '../../../errors';
+import { INVALID_EMAIL_OR_PASSWORD } from '../../../configs/constants';
 
 export class AuthResolver {
 
@@ -9,7 +10,7 @@ export class AuthResolver {
             let user = await UserService.getByEmail(payload.email);
 
             if (user) {
-                throw new BadRequest('Email already used');
+                throw new BadRequest(INVALID_EMAIL_OR_PASSWORD);
             }
     
             user = await UserService.create(payload);

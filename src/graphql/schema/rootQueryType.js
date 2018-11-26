@@ -1,6 +1,6 @@
 import { GraphQLObjectType } from 'graphql';
-import { UserQuery } from './user/queries';
-import { ContactQuery } from './contact/queries';
+import { UserQuery } from '../modules/user/queries';
+import { ContactQuery } from '../modules/contact/queries';
 
 const RootQueryType = new GraphQLObjectType({
     name: 'RootQueryType',

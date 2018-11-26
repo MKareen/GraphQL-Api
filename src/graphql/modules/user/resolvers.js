@@ -1,5 +1,5 @@
-import { UserService } from '../../services';
-import { BadRequest } from '../../errors';
+import { UserService } from '../../../services';
+import { BadRequest } from '../../../errors';
 
 export class UserResolver {
     static async edit(payload, user) {
