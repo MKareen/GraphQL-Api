@@ -1,7 +1,7 @@
 import { GraphQLString, GraphQLNonNull } from  'graphql';
 import { AuthResolver } from './resolvers';
 import { AuthValidator } from './validator';
-import AuthPayloadType from './types';
+import { AuthPayloadType } from './types';
 
 export class AuthMutation {
     static signup() {

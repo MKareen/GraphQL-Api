@@ -34,7 +34,7 @@ export class AuthResolver {
             user = await UserService.getByEmail(email);
     
             if (!user || !user.comparePassword(password)) {
-                throw new AuthError('Invalid email or password');
+                throw new AuthError(INVALID_EMAIL_OR_PASSWORD);
             }
     
             const tokenInfo = await Utils.signJWTToken(user);

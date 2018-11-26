@@ -54,7 +54,7 @@ export class ContactResolver {
             if (payload.q) {
                 let searchResult = await ContactService.search(payload.q);
 
-                return searchResult.filter(res => res.owner === user._id.toString());
+                return searchResult.filter(res => res.owner.toString() === user._id.toString());
             } else {
                 return await ContactService.getByUserId(user._id);
             }

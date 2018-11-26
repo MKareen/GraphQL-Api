@@ -9,7 +9,7 @@ if (cluster.isMaster) {
 
     console.log(`Master PID: ${process.pid}`);
 
-    cluster.on('exit', (worker, code, signal) => {
+    cluster.on('exit', (worker, code) => {
         if (code !== 0 && !worker.exitedAfterDisconnect) {
             console.log(`Worker ${worker.id} crashed. ` + 'Starting a new worker');
             cluster.fork();
@@ -20,10 +20,14 @@ if (cluster.isMaster) {
         const workers = Object.values(cluster.workers);
         const restartWorker = (i) => {
             const worker = workers[i];
-            if (!worker) return;
+            if (!worker) { 
+                return;
+            }
 
             worker.on('exit', () => {
-                if (!worker.exitedAfterDisconnect) return;
+                if (!worker.exitedAfterDisconnect) {
+                    return;
+                }
                 console.log(`Exited process ${worker.process.pid}`);
                 cluster.fork().on('listening', () => {
                     restartWorker(i + 1);

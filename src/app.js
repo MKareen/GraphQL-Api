@@ -64,6 +64,7 @@ class Application {
                 schema,
                 graphiql: true,
                 context: {
+                    req,
                     currentUser: req.currentUser
                 },
                 pretty: true,

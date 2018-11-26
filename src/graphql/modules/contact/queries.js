@@ -11,7 +11,7 @@ export class ContactQuery {
             args: {
                 id: { type: new GraphQLNonNull(GraphQLID) }
             },
-            resolve: async (parentValue, args, { currentUser }) => {
+            resolve: async (root, args, { currentUser }) => {
                 ContactValidator.checkAuth(currentUser);
 
                 return await ContactService.getById(args.id);
@@ -22,7 +22,7 @@ export class ContactQuery {
     static getAllContacts() {
         return {
             type: new GraphQLList(ContactType),
-            resolve: async (parentValue, args, { currentUser }) => {
+            resolve: async (root, args, { currentUser }) => {
                 ContactValidator.checkAuth(currentUser);
 
                 return await ContactService.getAll();
@@ -36,7 +36,7 @@ export class ContactQuery {
             args: {
                 q: { type: GraphQLString }
             },
-            resolve: async (parent, args, { currentUser }) => {
+            resolve: async (root, args, { currentUser }) => {
                 ContactValidator.checkAuth(currentUser);
 
                 return await ContactResolver.searchContact(args, currentUser);
@@ -47,7 +47,7 @@ export class ContactQuery {
     static getContactsByUser() {
         return {
             type: new GraphQLList(ContactType),
-            resolve: async (parentValue, args, { currentUser }) => {
+            resolve: async (root, args, { currentUser }) => {
                 ContactValidator.checkAuth(currentUser);
 
                 return await ContactResolver.getByUser(currentUser);
