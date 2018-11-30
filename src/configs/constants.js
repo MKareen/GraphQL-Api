@@ -6,7 +6,5 @@ export const INVALID = resource => `${resource} is invalid`;
 export const ALREADY_EXISTS = resource => `${resource} already exists!`;
 export const NOT_EXISTS = resource => `${resource} doesn't exist!`;
 export const INVALID_EMAIL_OR_PASSWORD = 'Invalid email or password';
-export const USER_ALREADY_EXISTS_ON_ACCOUNT = 'User with this email is already on this account';
 export const SERVICE_UNAVAILABLE = 'Service is temporarily unavailable';
-export const BEARER_AUTH = 'bearer';
 

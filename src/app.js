@@ -62,7 +62,6 @@ class Application {
         this.app.use('/graphql', expressGraphQL((req) => {
             return {
                 schema,
-                graphiql: true,
                 context: {
                     req,
                     currentUser: req.currentUser
