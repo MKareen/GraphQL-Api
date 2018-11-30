@@ -9,7 +9,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import Utils from './helpers/utils';
 import { AuthError } from './errors';
-const fs = require('fs');
+const util = require('util');
 
 class Application {
     app;
