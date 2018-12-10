@@ -1,4 +1,6 @@
 import {
+    apiUrl,
+    appUrl,
     apiPort,
     tokenSecret,
     facebookId,
@@ -8,6 +10,8 @@ import {
 
 const params = {
     development: {
+        apiUrl,
+        appUrl,
         apiPort,
         tokenSecret,
         facebookId,
@@ -15,6 +19,8 @@ const params = {
         facebookCallbackUrl
     },
     production: {
+        apiUrl,
+        appUrl,
         apiPort,
         tokenSecret,
         facebookId,
