@@ -6,6 +6,7 @@ import limiter from './configs/limiter';
 import cookieParser from 'cookie-parser';
 import schema from './graphql/schema/schema';
 import cors from 'cors';
+import corsOptions from './configs/cors';
 import logger from 'morgan';
 import Utils from './helpers/utils';
 import { AuthError } from './errors';
@@ -29,7 +30,7 @@ class Application {
             this.app.use(logger('dev'));
         }
 
-        this.app.use(cors())
+        this.app.use(cors(corsOptions))
                 .use(json())
                 .use(urlencoded({ extended: true }))
                 .use(cookieParser())
