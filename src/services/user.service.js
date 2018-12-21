@@ -11,7 +11,7 @@ export class UserService {
 
     static async getById(_id) {
         return await User.findOne({ _id })
-                .select('email fullName createdAt isActive');
+                .select('_id email fullName createdAt isActive');
     }
 
     static async getByEmail(email) {

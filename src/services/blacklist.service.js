@@ -17,6 +17,6 @@ export class BlacklistService {
     }
 
     static async remove(_id) {
-        return await Blacklist.find().remove({ _id });
+        return await Blacklist.deleteOne({ _id });
     }
 }

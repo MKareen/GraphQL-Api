@@ -1,10 +1,10 @@
 {
-  "name": "gql-app",
+  "name": "contacts-api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "engines": {
-    "node": "8.10.x"
+    "node": "10.14.x"
   },
   "scripts": {
     "lint": "eslint .",
@@ -73,7 +73,6 @@
     "express-graphql": "^0.6.12",
     "express-rate-limit": "^2.14.2",
     "express-session": "^1.15.0",
-    "express-validator": "^5.3.0",
     "graphql": "^14.0.2",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
@@ -82,7 +81,6 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
-    "permit": "^0.2.4",
     "validator": "^10.9.0"
   },
   "devDependencies": {

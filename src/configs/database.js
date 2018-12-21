@@ -26,38 +26,28 @@ function mongoConnection() {
     // Load models
     initModels(mongoose);
 
-    mongoose.connection.on('error', function (err) {
+    mongoose.connection.on('error', (err) => {
         console.error('Mongoose connection: error - ' + err);
     });
 
-    mongoose.connection.on('connected', function () {
+    mongoose.connection.on('connected', () => {
         console.info('Mongoose connection: connected');
     });
 
-    mongoose.connection.on('open', function () {
+    mongoose.connection.on('open', () => {
         console.info('Mongoose connection: open');
     });
 
-    mongoose.connection.on('reconnected', function () {
+    mongoose.connection.on('reconnected', () => {
         console.info('Mongoose connection: reconnected');
     });
-    mongoose.connection.on('reconnectFailed', function (err) {
-        console.error('Mongoose reconnect: error - ' + err);
-        capture.error(err);
-    });
 
-    mongoose.connection.on('disconnected', function () {
+    mongoose.connection.on('disconnected', () => {
         console.warn('Mongoose connection: disconnected');
     });
 
-    process.on('SIGINT', function () {
-        mongoose.disconnect(function () {
-            process.exit(0);
-        });
-    });
-
-    process.on('SIGINT', function () {
-        mongoose.disconnect(function () {
+    process.on('SIGINT', () => {
+        mongoose.disconnect(() => {
             process.exit(0);
         });
     });

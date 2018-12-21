@@ -23,6 +23,7 @@
     "eqeqeq": "error",
     "eol-last": "error",
     "key-spacing": "error",
+    "no-console": "off",
     "spaced-comment": "error",
     "space-infix-ops": "error",
     "space-before-blocks": "error",

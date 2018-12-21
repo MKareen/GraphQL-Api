@@ -15,6 +15,7 @@ export default new CronJob({
                     try {
                         await Utils.verifyJWTToken(token.token);
                     } catch (e) {
+                        // todo check error type then remove
                         await BlacklistService.remove(token._id);
                     }
                 });
