@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { ValidationError } from '../../../errors';
+import { AuthError, ValidationError } from '../../../errors';
 import { INVALID, REQUIRED } from '../../../configs/constants';
 
 export class AuthValidator {
@@ -44,6 +44,12 @@ export class AuthValidator {
 
         if (errors.length) {
             throw new ValidationError(errors);
+        }
+    }
+
+    static checkAuth(user) {
+        if (!user) {
+            throw new AuthError('Unauthorized');
         }
     }
 }

@@ -1,4 +1,4 @@
-import { UserService } from '../../../services';
+import { UserService, BlacklistService } from '../../../services';
 import Utils from '../../../helpers/utils';
 import { AuthError, BadRequest } from '../../../errors';
 import { INVALID_EMAIL_OR_PASSWORD } from '../../../configs/constants';
@@ -45,6 +45,18 @@ export class AuthResolver {
             };
         }
         catch (err) {
+            throw err;
+        }
+    }
+
+    static async logout(req) {
+        try {
+            let token = req.headers['authorization'].replace('Bearer ', '');
+
+            await BlacklistService.add(token);
+
+            return {};
+        } catch(err) {
             throw err;
         }
     }

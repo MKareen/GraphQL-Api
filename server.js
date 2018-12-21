@@ -1,5 +1,3 @@
-process.stdout.write(`\u001B[2J\u001B[0;0f`);
-
 const http = require('http');
 import './src/configs/database';
 import App from './src/app';

@@ -6,8 +6,9 @@ export default class Utils {
 
     static signJWTToken(user) {
         const payload = { _id: user._id, email: user.email, created_at: moment().toString() };
+        const options = { expiresIn: '1h' };
 
-        const token = jwt.sign(payload, params.tokenSecret);
+        const token = jwt.sign(payload, params.tokenSecret, options);
 
         return { token };
     }

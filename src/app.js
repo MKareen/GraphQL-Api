@@ -4,12 +4,12 @@ import { json, urlencoded } from 'body-parser';
 import RateLimit from 'express-rate-limit';
 import limiter from './configs/limiter';
 import cookieParser from 'cookie-parser';
-import schema from './graphql/schema/schema';
+import graphql from './configs/graphql';
 import cors from 'cors';
 import corsOptions from './configs/cors';
 import logger from 'morgan';
-import Utils from './helpers/utils';
-import { AuthError } from './errors';
+import authentication from './middlewares/authentication';
+import tokenChecker from './cron/tokenChecker';
 
 class Application {
     app;
@@ -22,6 +22,7 @@ class Application {
         this.configApp();
         this.configAuthentication();
         this.setParams();
+        this.configCron();
         this.configGraphQL();
     }
 
@@ -42,40 +43,19 @@ class Application {
     }
 
     configAuthentication() {
-        this.app.use(async (req, res, next) => {
-            const token = req.headers['authorization'];
-            if (token !== 'null') {
-                try {
-                    req.currentUser = await Utils.verifyJWTToken(token);
-                } catch (err) {
-                    throw new AuthError('Unauthorized');
-                }
-            }
-            next();
-        });
+        this.app.use(authentication);
     }
 
     setParams() {
         this.app.set('json spaces', 4);
     }
 
+    configCron() {
+        tokenChecker.start();
+    }
+
     configGraphQL() {
-        this.app.use('/graphql', expressGraphQL((req) => {
-            return {
-                schema,
-                context: {
-                    req,
-                    currentUser: req.currentUser
-                },
-                pretty: true,
-                formatError: error => ({
-                    message: error.message,
-                    state: error.originalError && error.originalError.state,
-                    locations: error.locations,
-                    path: error.path,
-                }),
-            };
-        }));
+        this.app.use('/graphql', expressGraphQL(graphql));
     }
 }
 

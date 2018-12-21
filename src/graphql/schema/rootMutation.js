@@ -8,6 +8,7 @@ const mutation = new GraphQLObjectType({
     fields: {
         signup: AuthMutation.signup(),
         login: AuthMutation.login(),
+        logout: AuthMutation.logout(),
 
         editUser: UserMutation.editUser(),
 

@@ -2,6 +2,7 @@ import { GraphQLString, GraphQLNonNull } from  'graphql';
 import { AuthResolver } from './resolvers';
 import { AuthValidator } from './validator';
 import { AuthPayloadType } from './types';
+import { UserType } from '../user/types';
 
 export class AuthMutation {
     static signup() {
@@ -32,6 +33,17 @@ export class AuthMutation {
 
                 return await AuthResolver.login(args);
             } 
+        };
+    }
+
+    static logout() {
+        return {
+            type: UserType,
+            resolve: async (root, args, { req }) => {
+                AuthValidator.checkAuth(req.currentUser);
+
+                return await AuthResolver.logout(req);
+            }
         };
     }
 }
