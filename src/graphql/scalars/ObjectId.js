@@ -7,9 +7,9 @@ const isObjectId =  (str) => {
     return objectIdPattern.test(str);
 };
 
-const parseObjectId = _id => {
+const parseObjectId =(_id) => {
     if (isObjectId(_id)) {
-        return ObjectId(_id);
+        return new ObjectId(_id);
     }
 
     throw new Error('ObjectId must be a single String of 24 hex characters');

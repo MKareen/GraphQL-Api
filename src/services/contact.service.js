@@ -42,11 +42,11 @@ export class ContactService {
     static async update(_id, contact) {
         const options = { new: true };
 
-        return Contact.findOneAndUpdate({ _id }, contact, options);
+        return await Contact.findOneAndUpdate({ _id }, contact, options);
     }
 
     static async delete(_id) {
-        return Contact.findOneAndRemove({ _id });
+        return await Contact.findOneAndRemove({ _id });
     }
 
 }

@@ -10,12 +10,11 @@ export class UserService {
     }
 
     static async getById(_id) {
-        return await User.findOne({ _id })
-                .select('_id email fullName createdAt isActive');
+        return await User.findOne({ _id }, { password: 0 });
     }
 
     static async getByEmail(email) {
-        return User.findOne({ email });
+        return await User.findOne({ email });
     }
 
     static async createFacebookUser (data) {
@@ -29,7 +28,7 @@ export class UserService {
     static async update(_id, user) {
         const options = { new: true };
 
-        return User.findOneAndUpdate({ _id }, user, options);
+        return await User.findOneAndUpdate({ _id }, user, options);
     }
 
     static async create(payload) {

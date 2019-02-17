@@ -3,7 +3,7 @@ import { UserQuery } from '../modules/user/queries';
 import { ContactQuery } from '../modules/contact/queries';
 
 const RootQueryType = new GraphQLObjectType({
-    name: 'RootQueryType',
+    name: 'Query',
     fields: () => ({
         user: UserQuery.getOne(),
         currentUser: UserQuery.getCurrentUser(),
@@ -17,4 +17,3 @@ const RootQueryType = new GraphQLObjectType({
 });
 
 export default RootQueryType;
-

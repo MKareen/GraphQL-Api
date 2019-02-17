@@ -8,4 +8,3 @@ export const AuthPayloadType = new GraphQLObjectType({
         user: { type: UserType }
     })
 });
-

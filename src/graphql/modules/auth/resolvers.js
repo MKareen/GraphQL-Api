@@ -15,7 +15,7 @@ export class AuthResolver {
     
             user = await UserService.create(payload);
     
-            const tokenInfo = await Utils.signJWTToken(user);
+            const tokenInfo = Utils.signJWTToken(user);
     
             return {
                 accessToken: tokenInfo.token,

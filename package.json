@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint .",
     "start:dev": "NODE_ENV=development nodemon",
-    "start:prod": "NODE_ENV=production babel-node cluster.js",
+    "start:prod": "NODE_ENV=production babel-node index.js",
     "start": "npm run start:prod"
   },
   "keywords": [

@@ -1,6 +1,6 @@
 export default (mongoose) => {
     let ContactSchema = mongoose.Schema({
-        owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
+        owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User', index: true },
         firstName: { type: String, required: true },
         lastName: String,
         phone: { type: String, required: true, unique: true },

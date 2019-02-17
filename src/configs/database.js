@@ -16,14 +16,12 @@ function mongoConnection() {
             useCreateIndex: true
         };
 
-        // Connect mongoose to the database
         return mongoose.connect(mongoUrl, options);
     }
 
     connect();
     mongoose.set('debug', true);
 
-    // Load models
     initModels(mongoose);
 
     mongoose.connection.on('error', (err) => {

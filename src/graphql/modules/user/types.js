@@ -16,7 +16,7 @@ export const UserType = new GraphQLObjectType({
             resolve: async (root) => {
                 return await ContactService.getUserFavourites(root.id);
             }
-        },
+        }
     })
 });
 
