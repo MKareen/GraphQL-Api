@@ -8,7 +8,7 @@ const corsOptions = {
         ]
     },
     production: {
-        origin: '',
+        origin: /contacts-gql.herokuapp.com/,
         credentials: true,
         allowedHeaders: [
             'Content-Type',
