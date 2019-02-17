@@ -1,5 +1,5 @@
 {
-  "name": "contacts-api",
+  "name": "contacts-gql-api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint .",
     "start:dev": "NODE_ENV=development nodemon",
-    "start:prod": "NODE_ENV=production babel-node index.js",
+    "start:prod": "NODE_ENV=production babel-node server.js",
     "start": "npm run start:prod"
   },
   "keywords": [

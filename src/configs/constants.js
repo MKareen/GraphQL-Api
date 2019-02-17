@@ -7,5 +7,6 @@ export const ALREADY_EXISTS = resource => `${resource} already exists!`;
 export const NOT_EXISTS = resource => `${resource} doesn't exist!`;
 export const INVALID_EMAIL_OR_PASSWORD = 'Invalid email or password';
 export const SERVICE_UNAVAILABLE = 'Service is temporarily unavailable';
+
 export const CRON_TIMEZONE = 'Asia/Yerevan';
 export const CRON_TIME = '*/5 * * * *';
